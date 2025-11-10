@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irina's Portfolio | Python Developer</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+        <p>Building Solutions with Python & Django</p>
+    </header>
+
+    <main>
+        <section class="about-me">
+            <img src="{% static 'main/images/profile-photo.jpg' %}" alt="Irina's Profile Photo" class="profile-photo">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>Hello! I'm Irina, a passionate Junior Python Developer with a focus on web development. I love creating efficient, user-friendly applications using Django and modern web technologies.</p>
+                
+                <div class="skills">
+                    <h3>Technical Skills</h3>
+                    <ul>
+                        <li>Python Development</li>
+                        <li>Django Framework</li>
+                        <li>HTML & CSS</li>
+                        <li>Database Design</li>
+                        <li>RESTful APIs</li>
+                        <li>Git & GitHub</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        {% block content %}
+        <section class="projects">
+            <div class="projects-header">
+                <img src="{% static 'main/images/projects-icon.png' %}" alt="Projects Icon" class="projects-icon">
+                <div>
+                    <h2>Featured Projects</h2>
+                    <p>Explore some of my recent work and personal projects</p>
+                </div>
+            </div>
+            <a href="{% url 'project_list' %}" class="btn">
+                View All Projects →
+            </a>
+        </section>
+        {% endblock %}
+
+        <section class="contact">
+            <div class="contact-header">
+                <div class="chat-bubble">
+                    <svg width="50" height="50" viewBox="0 0 100 100" class="connect-icon">
+                        <path class="bubble" d="M85,5H15C9.5,5,5,9.5,5,15v50c0,5.5,4.5,10,10,10h10v20l20-20h40c5.5,0,10-4.5,10-10V15C95,9.5,90.5,5,85,5z"/>
+                        <path class="heart" d="M50,65 C50,65 35,50 30,45 C25,40 25,35 25,32.5 C25,25 31.5,20 37.5,20 C43.5,20 50,30 50,30 C50,30 56.5,20 62.5,20 C68.5,20 75,25 75,32.5 C75,35 75,40 70,45 C65,50 50,65 50,65"/>
+                    </svg>
+                <h2>Let's Connect</h2>
+                </div>
+            </div>
+            <div class="contact-info">
+                <p><a href="mailto:irinaosk206@gmail.com">📧 irinaosk206@gmail.com</a></p>
+                <p><a href="https://t.me/io_shine" target="_blank">💬 t.me/io_shine</a></p>
+                <p><a href="https://github.com/Irina5-o" target="_blank">💻 github.com/Irina5-o</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Created with Django & ❤️ | © {% now "Y" %}</p>
+    </footer>
+</body>
+</html>
