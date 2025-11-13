@@ -8,7 +8,7 @@
 ## 🛠 Технологии
 
 - **Backend:** Django 5.2.4, Python
-- **Frontend:** HTML5, CSS3, JavaScript
+- **Frontend:** HTML, CSS
 - **Database:** SQLite3
 - **Deployment:** PythonAnywhere
 - **Static Files:** WhiteNoise
