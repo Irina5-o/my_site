@@ -5,4 +5,7 @@ __pycache__/
 *.log
 staticfiles/
 .DS_Store
+
+# IDE
+.idea/
 .vscode/
