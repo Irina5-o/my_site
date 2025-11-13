@@ -1,11 +1,18 @@
+# Django
+*.log
 *.sqlite3
+db.sqlite3
 __pycache__/
 *.pyc
+
+# Environment
 .env
-*.log
-staticfiles/
-.DS_Store
+.venv
+venv/
 
 # IDE
-.idea/
 .vscode/
+.idea/
+
+# Static files
+staticfiles/

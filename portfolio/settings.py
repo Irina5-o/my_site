@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-8wg&*a@y9uxk(_&b82ngs00^=i0wm&*fbxj@kiyvaz=t2!38=n')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'  # по умолчанию True для разработки
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = ['*']
 
@@ -101,8 +101,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CSRF settings for Railway
+# CSRF settings for PythonAnywhere
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.up.railway.app',
-    'https://*.railway.app'
+    'https://*.pythonanywhere.com'
 ]
