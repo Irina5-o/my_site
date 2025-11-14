@@ -8,6 +8,10 @@
     --gray: #39393d;
 }
 
+* {
+    box-sizing: border-box; /* Применяем ко всем элементам */
+}
+
 body {
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     background: url('/static/main/images/background.jpg') no-repeat center center fixed;
@@ -17,13 +21,15 @@ body {
     -o-background-size: cover;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
-    image-rendering: pixelated; /* This will preserve pixel art quality */
+    image-rendering: pixelated;
     margin: 0;
     padding: 0;
     color: var(--dark);
     line-height: 1.7;
     min-height: 100vh;
     position: relative;
+    overflow-x: hidden; /* Важно: предотвращает горизонтальный скролл */
+    width: 100%;
 }
 
 /* Add an overlay to help with contrast */
@@ -49,6 +55,8 @@ header {
     padding: 4rem 1rem;
     text-align: center;
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    width: 100%;
+    max-width: 100%;
 }
 
 header h1 {
@@ -65,6 +73,8 @@ main {
     padding: 0 1.5rem;
     position: relative;
     top: -3rem;
+    width: 100%;
+    overflow: hidden; /* Предотвращает выход контента за границы */
 }
 
 /* Section styles */
@@ -78,6 +88,8 @@ section {
     backdrop-filter: blur(8px);
     color: #d1ff67;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 100%;
 }
 
 section:hover {
@@ -101,6 +113,7 @@ section:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     border: 4px solid rgb(154, 255, 131);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 100%;
 }
 
 .profile-photo:hover {
@@ -280,6 +293,7 @@ a:hover {
     filter: brightness(0.95);
     transition: transform 0.3s ease;
     margin-bottom: 1rem;
+    max-width: 100%;
 }
 
 .projects:hover .projects-icon {
@@ -298,6 +312,7 @@ footer {
     background: white;
     margin-top: 4rem;
     border-top: 1px solid rgba(0,0,0,0.1);
+    width: 100%;
 }
 
 /* Responsive design */
@@ -311,13 +326,13 @@ footer {
         text-align: center;
         gap: 2rem;
     }
-    
+
     .profile-photo {
         width: 200px;
         height: 200px;
         margin: 0 auto;
     }
-    
+
     .skills ul {
         grid-template-columns: 1fr;
     }
@@ -332,6 +347,8 @@ footer {
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem;
+    width: 100%;
+    overflow: hidden; /* Важно! */
 }
 
 .project-header {
@@ -369,9 +386,10 @@ footer {
     line-height: 1.8;
     font-size: 1.1rem;
     backdrop-filter: blur(8px);
+    width: 100%;
 }
 
-/* Стили для видео секции */
+/* ===== ДЛЯ ВИДЕО ===== */
 .video-section {
     background: rgba(0, 0, 0, 0.6);
     padding: 2rem;
@@ -379,32 +397,58 @@ footer {
     margin-bottom: 2rem;
     backdrop-filter: blur(8px);
     border: 1px solid rgba(148, 252, 79, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* Критически важно */
 }
 
 .video-section h3 {
     color: #94fc4f;
-    text-align: center;
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 .video-container {
     position: relative;
     width: 100%;
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(148, 252, 79, 0.1);
+    background: #000;
+    transition: all 0.3s ease;
 }
 
+.video-container:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 40px rgba(0,0,0,0.4),
+        0 0 0 2px rgba(148, 252, 79, 0.3);
+}
+
+/* САМОЕ ВАЖНОЕ - стили для видео */
 .project-video {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
     display: block;
-    border: 3px solid #94fc4f;
+    border: none;
     border-radius: 12px;
-    background: #000;
+    object-fit: contain;
+}
+
+/* Отключаем любые возможные внутренние стили видео */
+.project-video::-webkit-media-controls-panel {
+    max-width: 100%;
+}
+
+.project-video::-webkit-media-controls-enclosure {
+    max-width: 100%;
 }
 
 .video-note {
@@ -413,13 +457,60 @@ footer {
     font-size: 0.9rem;
     margin-top: 1rem;
     font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-/* Стили для футера */
+/* Адаптивность для видео */
+@media (max-width: 768px) {
+    .video-section {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .video-container {
+        border-radius: 8px;
+    }
+
+    .video-section h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .project-video {
+        border-radius: 8px;
+    }
+
+    .project-detail {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-section {
+        padding: 1rem;
+    }
+
+    .video-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .video-container {
+        border-radius: 6px;
+    }
+
+    .project-video {
+        border-radius: 6px;
+    }
+
+    .project-detail {
+        padding: 0.5rem;
+    }
+}
+
+/* Стили для кнопки назад */
 .project-footer {
     text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 2rem;
 }
 
 .btn-back {
@@ -427,50 +518,58 @@ footer {
     align-items: center;
     gap: 0.5rem;
     padding: 0.8rem 1.5rem;
-    background: rgba(99, 102, 241, 0.8);
-    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    color: #94fc4f;
     border-radius: 8px;
-    transition: all 0.3s ease;
     font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(148, 252, 79, 0.3);
 }
 
 .btn-back:hover {
-    background: rgba(99, 102, 241, 1);
-    transform: translateX(-5px);
+    background: rgba(148, 252, 79, 0.1);
+    transform: translateY(-2px);
+    color: #94fc4f;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .project-detail {
-        padding: 1rem;
-    }
 
-    .project-header h2 {
-        font-size: 2rem;
-    }
-
-    .project-description,
-    .video-section {
-        padding: 1.5rem;
-    }
-
-    .video-container {
-        border-radius: 8px;
-    }
+/* Профессиональные классы для проекта */
+.project-actions {
+    margin-top: 1.5rem;
 }
 
-/* Анимации */
-.project-detail {
-    animation: fadeInUp 0.6s ease-out;
+.btn-primary {
+    background: linear-gradient(135deg, #94fc4f, #6366f1);
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.6);
+    color: #94fc4f;
+    border: 1px solid rgba(148, 252, 79, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(148, 252, 79, 0.1);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.icon {
+    margin-right: 0.5rem;
 }

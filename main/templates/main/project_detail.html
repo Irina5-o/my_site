@@ -3,47 +3,62 @@
 
 {% block content %}
 <div class="project-detail">
-    <!-- Заголовок проекта -->
+    <!-- Заголовок и мета-информация -->
     <header class="project-header">
-        <h2>{{ project.title }}</h2>
+        <h1>{{ project.title }}</h1>
         {% if project.link %}
-        <a href="{{ project.link }}" target="_blank" class="btn project-link">
-            Посмотреть проект
-        </a>
+        <div class="project-actions">
+            <a href="{{ project.link }}" target="_blank" rel="noopener" class="btn btn-primary">
+                <span class="icon">🌐</span>
+                Открыть проект
+            </a>
+        </div>
         {% endif %}
     </header>
 
-    <!-- Описание проекта -->
-    <section class="project-description">
-        <p>{{ project.description }}</p>
-    </section>
+    <!-- Основное содержимое -->
+    <article class="project-content">
+        <!-- Описание проекта -->
+        <section class="project-description">
+            <h2 class="visually-hidden">Описание проекта</h2>
+            <div class="description-content">
+                {{ project.description|linebreaks }}
+            </div>
+        </section>
 
-    <!-- Видео демонстрация -->
-    {% if project.video or project.video_url %}
-    <section class="video-section">
-        <h3>🎥 Демонстрация проекта</h3>
-        <div class="video-container">
-            {% if project.video %}
-                <video controls class="project-video">
-                    <source src="{{ project.video.url }}" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            {% elif project.video_url %}
-                <video controls class="project-video">
-                    <source src="{{ project.video_url }}" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-            {% endif %}
-        </div>
-        <p class="video-note">Для лучшего качества включите HD в настройках видео</p>
-    </section>
-    {% endif %}
+        <!-- Видео демонстрация -->
+        {% if project.has_video %}
+        <section class="project-demo video-section" aria-labelledby="demo-heading">
+            <h2 id="demo-heading">Демонстрация проекта</h2>
+            <div class="video-container">
+                {% if project.video %}
+                    <video controls class="project-video" preload="metadata"
+                           aria-label="Видео демонстрация проекта {{ project.title }}"
+                           style="width:100%; max-width:100%; height:auto; display:block;">
+                        <source src="{{ project.video.url }}" type="video/mp4">
+                        Ваш браузер не поддерживает видео элементы.
+                    </video>
+                {% elif project.video_url %}
+                    <video controls class="project-video" preload="metadata"
+                           aria-label="Видео демонстрация проекта {{ project.title }}"
+                           style="width:100%; max-width:100%; height:auto; display:block;">
+                        <source src="{{ project.video_url }}" type="video/mp4">
+                        Ваш браузер не поддерживает видео элементы.
+                    </video>
+                {% endif %}
+            </div>
+        </section>
+        {% endif %}
+    </article>
 
     <!-- Навигация -->
     <footer class="project-footer">
-        <a href="{% url 'project_list' %}" class="btn-back">
-            Назад к проектам
-        </a>
+        <nav aria-label="Навигация по проектам">
+            <a href="{% url 'project_list' %}" class="btn btn-secondary">
+                <span class="icon">←</span>
+                К списку проектов
+            </a>
+        </nav>
     </footer>
 </div>
 {% endblock %}
