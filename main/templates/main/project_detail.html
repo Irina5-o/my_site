@@ -1,9 +1,49 @@
 {% extends 'main/home.html' %}
+{% load static %}
+
 {% block content %}
-    <h2>{{ project.title }}</h2>
-    <p>{{ project.description }}</p>
-    {% if project.link %}
-        <p><a href="{{ project.link }}" target="_blank">View Project</a></p>
+<div class="project-detail">
+    <!-- Заголовок проекта -->
+    <header class="project-header">
+        <h2>{{ project.title }}</h2>
+        {% if project.link %}
+        <a href="{{ project.link }}" target="_blank" class="btn project-link">
+            Посмотреть проект
+        </a>
+        {% endif %}
+    </header>
+
+    <!-- Описание проекта -->
+    <section class="project-description">
+        <p>{{ project.description }}</p>
+    </section>
+
+    <!-- Видео демонстрация -->
+    {% if project.video or project.video_url %}
+    <section class="video-section">
+        <h3>🎥 Демонстрация проекта</h3>
+        <div class="video-container">
+            {% if project.video %}
+                <video controls class="project-video">
+                    <source src="{{ project.video.url }}" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            {% elif project.video_url %}
+                <video controls class="project-video">
+                    <source src="{{ project.video_url }}" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            {% endif %}
+        </div>
+        <p class="video-note">Для лучшего качества включите HD в настройках видео</p>
+    </section>
     {% endif %}
-    <a href="{% url 'project_list' %}">Back to Projects</a>
+
+    <!-- Навигация -->
+    <footer class="project-footer">
+        <a href="{% url 'project_list' %}" class="btn-back">
+            Назад к проектам
+        </a>
+    </footer>
+</div>
 {% endblock %}

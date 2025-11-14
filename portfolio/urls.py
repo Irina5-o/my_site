@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from main import views
 
 urlpatterns = [
@@ -24,3 +26,7 @@ urlpatterns = [
     path('projects/', views.project_list, name='project_list'),
     path('projects/<int:pk>/', views.project_detail, name='project_detail'),
 ]
+
+# Только для разработки - обслуживаем медиафайлы
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
