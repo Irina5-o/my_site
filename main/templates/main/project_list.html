@@ -1,11 +1,28 @@
 {% extends 'main/home.html' %}
+{% load static %}
+
 {% block content %}
-    <h2>Projects</h2>
-    <ul>
+<section class="projects">
+    <div class="projects-header">
+        <img src="{% static 'main/images/projects-icon.png' %}" alt="Projects Icon" class="projects-icon">
+        <div>
+            <h2>All Projects</h2>
+            <p>Explore my complete portfolio of work</p>
+        </div>
+    </div>
+
+    <div class="projects-list-container">
         {% for project in projects %}
-            <li><a href="{% url 'project_detail' project.pk %}">{{ project.title }}</a></li>
+        <div class="project-card">
+            <h3 class="project-title">
+                <a href="{% url 'project_detail' project.pk %}">{{ project.title }}</a>
+            </h3>
+        </div>
         {% empty %}
-            <li>No projects yet.</li>
+        <div class="no-projects">
+            <p>No projects yet. Check back soon for updates!</p>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
+</section>
 {% endblock %}
